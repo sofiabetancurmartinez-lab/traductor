@@ -12,7 +12,7 @@ import glob
 
 
 from gtts import gTTS
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 
 
 st.title("TRADUCTOR")
@@ -74,7 +74,6 @@ if result:
     except:
         pass
     st.title("Texto a Audio")
-    translator = Translator()
     
     text = str(result.get("GET_TEXT"))
     in_lang = st.selectbox(
@@ -145,8 +144,7 @@ if result:
     
     
     def text_to_speech(input_language, output_language, text, tld):
-        translation = translator.translate(text, src=input_language, dest=output_language)
-        trans_text = translation.text
+        trans_text = GoogleTranslator(source=input_language, target=output_language).translate(text)
         tts = gTTS(trans_text, lang=output_language, tld=tld, slow=False)
         try:
             my_file_name = text[0:20]
